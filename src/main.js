@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import axios from 'axios'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -9,6 +11,8 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places',
   },
 })
+
+Vue.use(ElementUI)
 
 Vue.prototype.$http = axios
 

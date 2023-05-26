@@ -1,7 +1,7 @@
 <!-- SearchBar.vue -->
 <template>
     <div id="app">
-      <GmapAutocomplete @place_changed="setPlace" :options="{fields: ['geometry', 'formatted_address', 'address_components']}"/>
+      <GmapAutocomplete @place_changed="setPlace" :options="{fields: ['geometry', 'formatted_address', 'address_components', 'name']}"/>
       <button @click="search">Search</button>
     </div>
   </template>

@@ -9,11 +9,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(place, index) in paginatedPlaces" :key="index">
+          <!-- <tr v-for="(place, index) in paginatedPlaces" :key="index"> -->
             <!-- <td><input type="checkbox" v-model="selectedPlaces" :value="place" /></td> -->
             <!-- <td>{{ place.name }}</td>
             <td>{{ place.address }}</td> -->
-          </tr>
+          <!-- </tr> -->
         </tbody>
       </table>
       <button @click="deleteSelectedPlaces">Delete</button>
@@ -58,6 +58,7 @@
       places(place) {
         if (place) {
           console.log("233");
+          console.log(place)
 
         }
       }

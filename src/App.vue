@@ -4,6 +4,7 @@
     <SearchBar @select-place="selectPlace" @search="search" />
     <MapView :places="selectedPlace" />
     <DataTable :places="selectedPlace" />
+    <Test :places="selectedPlace"/>
   </div>
 </template>
 
@@ -14,13 +15,16 @@ import LocationButton from './components/LocationButton.vue';
 import SearchBar from './components/SearchBar.vue';
 import MapView from './components/MapView.vue';
 import DataTable from './components/DataTable.vue';
+import Test from './components/TestView.vue';
+
 
 export default {
   components: {
     LocationButton,
     SearchBar,
     MapView,
-    DataTable
+    DataTable,
+    Test
 },
   data() {
     return {
