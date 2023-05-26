@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <LocationButton/>
+    <SearchBar @select-place="selectPlace" @search="search" />
+    <MapView :places="selectedPlace" />
+    <DataTable :places="selectedPlace" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import Gmap from './components/GoogleMap.vue';
+// import Location from './components/SearchLocation.vue';
+import LocationButton from './components/LocationButton.vue';
+import SearchBar from './components/SearchBar.vue';
+import MapView from './components/MapView.vue';
+import DataTable from './components/DataTable.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    LocationButton,
+    SearchBar,
+    MapView,
+    DataTable
+},
+  data() {
+    return {
+      selectedPlace: null
+    }
+  },
+  methods: {
+    selectPlace(place) {
+      this.selectedPlace = place;
+    },
+    search() {
+      // do something when user clicks the search button
+      console.log("hi")
+      // console.log(this.selectedPlace.formatted_address);
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
