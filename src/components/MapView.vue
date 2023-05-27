@@ -19,12 +19,6 @@
   <script>
   export default {
     props: ['places'],
-    // props:{
-    //   places: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // },
 
     data() {
       return {
@@ -35,7 +29,7 @@
     },
     watch: {
       places(place) {
-        if (place) {
+        if (place && place.geometry) {
           // console.log(place.formatted_address);
           const position = {
             lat: place.geometry.location.lat(),
@@ -43,9 +37,18 @@
           };
           this.markers.push({ position });
           this.center = position;
+          console.log(this.markers[0].position.lat);
         }
       }
+    },
+
+    methods: {
+      deleteMarker(index) {
+        this.markers.splice(index, 1);
+      }
     }
+
+
   };
   </script>
   

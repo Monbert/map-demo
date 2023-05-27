@@ -4,6 +4,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/en'; 
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -12,7 +13,7 @@ Vue.use(VueGoogleMaps, {
   },
 })
 
-Vue.use(ElementUI)
+Vue.use(ElementUI, { locale });
 
 Vue.prototype.$http = axios
 

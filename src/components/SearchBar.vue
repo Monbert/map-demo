@@ -10,18 +10,31 @@
   export default {
     data() {
     return {
-      place: ''
+      place: '',
+      tableData: [],
     }
     },
     methods: {
+
+
       setPlace(place) {
-        this.place = place;
-        this.$emit('select-place', place);
-        // console.log(place.formatted_address);
+        if(!this.tableData.includes(place.name)){
+          this.place = place;
+          this.$emit('select-place', place);
+          this.tableData.push(place.name);
+        }else{
+          console.log('setPlace duplicate');
+        }
+
       },
       search() {
-        this.$emit('search', this.place);
-        // console.log(this.place.formatted_address);
+        if(!this.tableData.includes(this.place.name)){
+          this.$emit('search', this.place);
+          this.tableData.push(this.place.name);
+        }else{
+          console.log('Search duplicate');
+        }
+
       }
     }
   };

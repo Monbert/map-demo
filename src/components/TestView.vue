@@ -1,20 +1,23 @@
 <template>
   <div>
+
+    <div style="margin-top: 20px">
+      <el-button size="mini" type="danger" @click="handleSelectionDelete()">Delete</el-button>
+    </div>
+
     <el-table
       ref="multipleTable"
-      :data="tableData"
+      :data="paginatedData"
+      :row-key="getRowKey"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange">
+
       <el-table-column
         type="selection"
-        width="55">
+        width="55"
+        :reserve-selection="true">
       </el-table-column>
-      <!-- <el-table-column
-        label="日期"
-        width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
-      </el-table-column> -->
       <el-table-column
         prop="search"
         label="Search"
@@ -26,10 +29,17 @@
         show-overflow-tooltip>
       </el-table-column>
     </el-table>
-    <div style="margin-top: 20px">
-      <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-      <el-button @click="toggleSelection()">取消选择</el-button>
+
+    <div class="block">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="tableData.length"
+        :page-size="2"
+        @current-change="handlePageChange">
+      </el-pagination>
     </div>
+
+
   </div>
   </template>
   
@@ -39,40 +49,71 @@
       data() {
         return {
           tableData: [],
-          multipleSelection: []
+          multipleSelection: [],
+          currentPage: 1,
         };
       },
 
+      computed: {
+        paginatedData() {
+          const startIndex = (this.currentPage - 1) * 2;
+          const endIndex = startIndex + 2;
+          return this.tableData.slice(startIndex, endIndex);
+        },
+      },
 
       watch: {
         places(newPlaces) {
-          if (typeof newPlaces === 'object') {
+          if (typeof newPlaces === 'object' && newPlaces.formatted_address) {
             // 从对象中获取需要的属性值，写入 tableData 数组的相应字段中
             const searchResult = {
               search: newPlaces.name,
               address: newPlaces.formatted_address
             };
             this.tableData.unshift(searchResult); // 将结果插入到数组开头
-      }
+          }
           else{
-            console.log("noooooo");
+            console.log('Cant find the place')
           }
         }
       },
 
+
       methods: {
-        toggleSelection(rows) {
-          if (rows) {
-            rows.forEach(row => {
-              this.$refs.multipleTable.toggleRowSelection(row);
-            });
-          } else {
-            this.$refs.multipleTable.clearSelection();
-          }
+
+        getRowKey(row) {
+          // 自定义获取行数据的唯一标识，可以根据实际情况修改
+          // console.log(`getRowKey! ${row.search}`)
+          return row.search;
         },
-        handleSelectionChange(val) {
-          this.multipleSelection = val;
+
+        handleSelectionChange(selection) {
+          this.multipleSelection = selection;
+        },
+
+
+        handlePageChange(currentPage) {
+          this.currentPage = currentPage;
+        },
+
+
+        handleSelectionDelete() {
+          console.log('Before splice:', this.tableData); // 在删除操作之前打印 this.tableData
+          this.multipleSelection.forEach(row => {
+            const index = this.tableData.findIndex(item => item.search === row.search);
+            console.log('this.tableData:', this.tableData);
+            // console.log('this.tableData:', this.tableData.length);
+            // console.log('row.search:', row.search);
+            console.log('index:', index);
+            if (index !== -1) {
+              this.tableData.splice(index, 1);
+            }
+          });
+          this.multipleSelection = [];
         }
+
+        
+
       }
     }
   </script>

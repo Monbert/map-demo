@@ -37,7 +37,7 @@ export default {
     },
     search() {
       // do something when user clicks the search button
-      console.log("hi")
+      console.log("doing search")
       // console.log(this.selectedPlace.formatted_address);
     }
   }
