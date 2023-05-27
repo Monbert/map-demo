@@ -18,7 +18,7 @@
   
   <script>
   export default {
-    props: ['places'],
+    props: ['places','tableData'],
 
     data() {
       return {
@@ -37,16 +37,38 @@
           };
           this.markers.push({ position });
           this.center = position;
-          console.log(this.markers[0].position.lat);
+          // console.log(this.markers[0].position.lat);
         }
+      },
+      
+      tableData(data) {
+        // this.searchHistory = data;
+        // console.log("2222Add table data:", data);
+        const existingMarkers = this.markers.filter(marker => {
+          // 检查 markers 数组中是否存在与 tableData 中位置匹配的标记
+          return data.some(item => {
+            return item.lat === marker.position.lat &&
+              item.lng === marker.position.lng;
+          });
+        });
+
+        // 删除 markers 数组中不再存在于 tableData 的标记
+        this.markers = existingMarkers;
+
+        // 添加 tableData 中不存在于 markers 数组的标记
+        data.forEach(item => {
+          const existingMarker = this.markers.find(marker => {
+            return marker.position.lat === item.lat &&
+              marker.position.lng === item.lng;
+          });
+
+          if (!existingMarker) {
+            this.markers.push({ position: item.position });
+          }
+        });
+
       }
     },
-
-    methods: {
-      deleteMarker(index) {
-        this.markers.splice(index, 1);
-      }
-    }
 
 
   };

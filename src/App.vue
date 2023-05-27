@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <LocationButton/>
-    <SearchBar @select-place="selectPlace" @search="search" />
-    <MapView :places="selectedPlace" />
+    <SearchBar @select-place="selectPlace" @search="search" :tableData="dataHistory" />
+    <MapView :places="selectedPlace" :tableData="dataHistory"/>
     <DataTable :places="selectedPlace" />
-    <Test :places="selectedPlace"/>
+    <Test :places="selectedPlace" @addTableData="addTableData"/>
   </div>
 </template>
 
@@ -28,7 +28,9 @@ export default {
 },
   data() {
     return {
-      selectedPlace: null
+      selectedPlace: null,
+      dataHistory: [],
+
     }
   },
   methods: {
@@ -36,9 +38,12 @@ export default {
       this.selectedPlace = place;
     },
     search() {
-      // do something when user clicks the search button
       console.log("doing search")
-      // console.log(this.selectedPlace.formatted_address);
+      this.selectedPlace = this.place;
+    },
+    addTableData(data) {
+      // 执行添加数据到表格的操作，使用传递的data参数
+      this.dataHistory=data;
     }
   }
 };

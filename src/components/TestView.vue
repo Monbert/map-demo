@@ -44,6 +44,7 @@
   </template>
   
   <script>
+
     export default {
       props: ['places'],
       data() {
@@ -60,6 +61,7 @@
           const endIndex = startIndex + 2;
           return this.tableData.slice(startIndex, endIndex);
         },
+
       },
 
       watch: {
@@ -68,9 +70,13 @@
             // 从对象中获取需要的属性值，写入 tableData 数组的相应字段中
             const searchResult = {
               search: newPlaces.name,
-              address: newPlaces.formatted_address
+              address: newPlaces.formatted_address,
+              lat: newPlaces.geometry.location.lat(),
+              lng: newPlaces.geometry.location.lng()
             };
             this.tableData.unshift(searchResult); // 将结果插入到数组开头
+            this.$emit('addTableData', this.tableData);
+
           }
           else{
             console.log('Cant find the place')
@@ -101,12 +107,13 @@
           console.log('Before splice:', this.tableData); // 在删除操作之前打印 this.tableData
           this.multipleSelection.forEach(row => {
             const index = this.tableData.findIndex(item => item.search === row.search);
-            console.log('this.tableData:', this.tableData);
+            // console.log('this.tableData:', this.tableData);
             // console.log('this.tableData:', this.tableData.length);
             // console.log('row.search:', row.search);
             console.log('index:', index);
             if (index !== -1) {
               this.tableData.splice(index, 1);
+
             }
           });
           this.multipleSelection = [];

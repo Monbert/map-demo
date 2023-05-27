@@ -8,29 +8,39 @@
   
   <script>
   export default {
+    props: ['tableData'],
+
+
     data() {
     return {
       place: '',
-      tableData: [],
+      searchHistory: [],
     }
     },
+
+    watch: {
+      tableData(data) {
+        this.searchHistory = data;
+      }
+    },
+
     methods: {
 
-
       setPlace(place) {
-        if(!this.tableData.includes(place.name)){
+        // console.log("Add table dataaaaa:", this.searchHistory);
+        if(!this.searchHistory.some(item => item.search === place.name)){
           this.place = place;
           this.$emit('select-place', place);
-          this.tableData.push(place.name);
+          // this.tableData.push(place.name);
         }else{
           console.log('setPlace duplicate');
         }
 
       },
       search() {
-        if(!this.tableData.includes(this.place.name)){
+        if(!this.searchHistory.some(item => item.search === this.place.name)){
           this.$emit('search', this.place);
-          this.tableData.push(this.place.name);
+          // this.tableData.push(this.place.name);
         }else{
           console.log('Search duplicate');
         }
