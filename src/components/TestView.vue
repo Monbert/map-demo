@@ -3,7 +3,9 @@
 
     <div style="margin-top: 20px">
       <el-button size="mini" type="danger" @click="handleSelectionDelete()">Delete</el-button>
+      <el-button size="mini"  @click="showTableData()">Show tableData</el-button>
     </div>
+
 
     <el-table
       ref="multipleTable"
@@ -104,19 +106,40 @@
 
 
         handleSelectionDelete() {
-          console.log('Before splice:', this.tableData); // 在删除操作之前打印 this.tableData
           this.multipleSelection.forEach(row => {
             const index = this.tableData.findIndex(item => item.search === row.search);
-            // console.log('this.tableData:', this.tableData);
-            // console.log('this.tableData:', this.tableData.length);
-            // console.log('row.search:', row.search);
-            console.log('index:', index);
-            if (index !== -1) {
-              this.tableData.splice(index, 1);
 
+            if (index != -1) {
+                this.tableData.splice(index, 1);
             }
           });
           this.multipleSelection = [];
+
+          // handle paginatedData after delete
+          const pageSize = 2; // 每页显示的数量
+          const totalData = this.tableData.length; // 总数据量
+          const totalPages = Math.ceil(totalData / pageSize); // 总页数
+
+          // 如果currentPage大于totalPages，那么将currentPage减1，但如果currentPage已经为1，那么就不再减少
+          // 这样可以保证currentPage至少为1，从而避免在计算startIndex和endIndex时出现负数
+          if (this.currentPage > totalPages) {
+            if(this.currentPage > 1){
+              this.currentPage--;
+            }else{
+              this.currentPage = 1;
+            }
+          }
+
+        },
+
+
+        showTableData() {
+          this.tableData.forEach((item,index)=>{
+            // console.log('Show tableData:', this.tableData);
+            console.log(`Element ${index}:`, item.search);
+
+          });
+
         }
 
         
