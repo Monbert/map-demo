@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="location-container">
         <!-- 获取当前位置的按钮 -->
-        <button @click="getCurrentLocation">Get Current Location</button>
+        <el-button class="location-button" type="primary" icon="el-icon-place" circle @click="getCurrentLocation"></el-button>
 
         <!-- 显示结果 -->
-        <p>{{ result }}</p>
+        <p class="location-result">{{ result }}</p>
     </div>
 </template>
   

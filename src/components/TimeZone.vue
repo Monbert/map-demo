@@ -1,58 +1,56 @@
 <template>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(place, index) in paginatedPlaces" :key="index">
-            <td><input type="checkbox" v-model="selectedPlaces" :value="place" /></td>
-            <td>{{ place.name }}</td>
-            <td>{{ place.address }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button @click="deleteSelectedPlaces">Delete</button>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    // props: {
-    //   place: {
-    //     type: Object,
-    //     required: true
-    // }
-    // },
-    props: ['places'],
-    data() {
-      return {
-        selectedPlaces: [],
-        currentPage: 1,
-        pageSize: 10
-      };
-    },
-    computed: {
-      paginatedPlaces() {
-        const startIndex = (this.currentPage - 1) * this.pageSize;
-        const endIndex = startIndex + this.pageSize;
-        return this.places.slice(startIndex, endIndex);
-      }
-    },
-    methods: {
-      deleteSelectedPlaces() {
-        this.selectedPlaces.forEach(place => {
-          // 删除地点的相关操作，比如删除对应的标记等
-          // ...
-        });
-        // 清空选中的地点列表
-        this.selectedPlaces = [];
+  <div>
+    <p>Latest searched location: {{ latestSearchLocation }}</p>
+    <p>Timezone: {{ timezone }}</p>
+    <p>Local Time: {{ localTime }}</p>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  props: ['places'],
+
+  data() {
+    return {
+      latestSearchLocation: '',
+      timezone: '',
+      localTime: ''
+    };
+  },
+
+  watch: {
+    places(place) {
+      if (place && place.geometry) {
+        this.latestSearchLocation = place.name;
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        this.getLocalTime(lat, lng);
+      } else {
+        console.log('Cant find the place');
       }
     }
-  };
-  </script>
-  
+  },
+
+  methods: {
+    async getLocalTime(lat, lng) {
+      const timestamp = Math.floor((new Date()).getTime() / 1000); 
+      const GMAP_API_KEY = 'AIzaSyC4u2ztHcOHet-8iqRQ_9JC91LyaWY0m9Y';
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/timezone/json?location=${lat}%2C${lng}&timestamp=${timestamp}&key=${GMAP_API_KEY}`);
+      
+      if (response.data.status === 'OK') {
+        const timeZoneId = response.data.timeZoneId;
+        this.timezone = response.data.timeZoneName;
+        // const offsets = response.data.dstOffset * 1000 + response.data.rawOffset * 1000;
+        // const localTimestamp = timestamp * 1000 + offsets;
+        const curTime= new Date(timestamp * 1000);
+        this.localTime = curTime.toLocaleString('en-US',{timeZone: timeZoneId});
+      } else {
+        console.error('Error fetching timezone data:', response.data);
+      }
+    }
+  }
+
+}
+</script>

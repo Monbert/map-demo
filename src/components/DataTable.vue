@@ -3,7 +3,7 @@
 
     <div style="margin-top: 20px">
       <el-button size="mini" type="danger" @click="handleSelectionDelete()">Delete</el-button>
-      <el-button size="mini"  @click="showTableData()">Show tableData</el-button>
+      <!-- <el-button size="mini"  @click="showTableData()">Show tableData</el-button> -->
     </div>
 
 
@@ -36,7 +36,7 @@
       <el-pagination
         layout="prev, pager, next"
         :total="tableData.length"
-        :page-size="2"
+        :page-size="10"
         @current-change="handlePageChange">
       </el-pagination>
     </div>
@@ -59,8 +59,8 @@
 
       computed: {
         paginatedData() {
-          const startIndex = (this.currentPage - 1) * 2;
-          const endIndex = startIndex + 2;
+          const startIndex = (this.currentPage - 1) * 10;
+          const endIndex = startIndex + 10;
           return this.tableData.slice(startIndex, endIndex);
         },
 
@@ -116,7 +116,7 @@
           this.multipleSelection = [];
 
           // handle paginatedData after delete
-          const pageSize = 2; // 每页显示的数量
+          const pageSize = 10; // 每页显示的数量
           const totalData = this.tableData.length; // 总数据量
           const totalPages = Math.ceil(totalData / pageSize); // 总页数
 
