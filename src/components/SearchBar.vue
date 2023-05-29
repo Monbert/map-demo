@@ -29,22 +29,10 @@ export default {
   methods: {
 
     setPlace(place) {
-      if (!this.searchHistory.some(item => item.search === place.name)) {
-        this.place = place;
-        this.$emit('select-place', place);
-      } else {
-        this.popWarningMessage();
-        // console.log('setPlace duplicate');
-      }
-    },
-
-    popWarningMessage() {
-      this.$message({
-        showClose: true,
-        message: 'Please enter a different location',
-        type: 'warning'
-      });
+      this.place = place;
+      this.$emit('select-place', place);
     }
+
   }
 };
 </script>

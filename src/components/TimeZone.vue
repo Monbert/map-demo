@@ -28,7 +28,7 @@ export default {
         const lng = place.geometry.location.lng();
         this.getLocalTime(lat, lng);
       } else {
-        console.log('Cant find the place22');
+        // console.log('Cant find the place22');
       }
     }
   },

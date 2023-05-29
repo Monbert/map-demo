@@ -18,12 +18,21 @@ export default {
         getCurrentLocation() {
             // get current location using browser's Geolocation API
             if (navigator.geolocation) {
+                this.popSuccessMessage();
                 navigator.geolocation.getCurrentPosition((position) => {
                     this.result = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
                 });
             } else {
                 this.result = "Geolocation is not supported by this browser.";
             }
+        },
+
+        popSuccessMessage() {
+            this.$message({
+                showClose: true,
+                message: 'Successful',
+                type: 'success'
+            });
         },
 
     },

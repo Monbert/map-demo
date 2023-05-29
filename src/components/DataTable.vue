@@ -47,19 +47,23 @@ export default {
 
   watch: {
     places(newPlaces) {
-      if (typeof newPlaces === 'object' && newPlaces.formatted_address) { // only insert the search content that had address in gmap
-        const searchResult = {
-          search: newPlaces.name,
-          address: newPlaces.formatted_address,
-          lat: newPlaces.geometry.location.lat(),
-          lng: newPlaces.geometry.location.lng()
-        };
-        this.tableData.unshift(searchResult); // insert the result at the beginning of the array
-        this.$emit('addTableData', this.tableData);
+      if (typeof newPlaces === 'object' && newPlaces.formatted_address) { // only return gmap allowed search
+        if (!this.tableData.some(item => item.search === newPlaces.name)) { // warning duplicated place
+          const searchResult = {
+            search: newPlaces.name,
+            address: newPlaces.formatted_address,
+            lat: newPlaces.geometry.location.lat(),
+            lng: newPlaces.geometry.location.lng()
+          };
+          this.tableData.unshift(searchResult); // insert the result at the beginning of the array
+          this.$emit('addTableData', this.tableData);
+        } else {
+          this.popWarningMessage();
+        }
       }
       else {
         this.popErrorMessage();
-        console.log('Cant find the place11');
+        // console.log('Cant find the place11');
       }
     }
   },
@@ -108,8 +112,16 @@ export default {
     popErrorMessage() {
       this.$message({
         showClose: true,
-        message: `No details available for input '${this.places.name}'`,
+        message: `No details available for search input`,
         type: 'error'
+      });
+    },
+
+    popWarningMessage() {
+      this.$message({
+        showClose: true,
+        message: 'Place already exists in table',
+        type: 'warning'
       });
     }
 
