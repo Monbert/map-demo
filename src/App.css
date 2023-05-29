@@ -7,53 +7,60 @@
 
 .flex-container {
     display: flex;
-  }
+}
 
 .title {
     text-align: center;
-    margin-top: 20px; /* 添加上边距使标题居中 */
-    /* margin-bottom: 10px; */
+    margin-top: 20px;
 }
-  
+
 .border {
     border-radius: 20px;
-    border: 1px solid #a9a9a9; 
+    border: 1px solid #a9a9a9;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    width: 98%; 
-    margin: 20px auto; 
-    margin-top: 10px; 
-    overflow: hidden; 
+    width: 98%;
+    margin: 20px auto;
+    margin-top: 10px;
+    overflow: hidden;
 }
 
 
 .left-section {
-    width: 60%; /* 地图占据左边2/3的宽度 */
+    width: 60%;
     float: left;
     margin: 20px;
-  }
-  
-  .right-section {
-    width: 37%; /* 搜索结果表格占据右边1/3的宽度 */
+}
+
+.right-section {
+    width: 37%;
     float: right;
     margin: 20px;
-  }
+}
 
-  .map-view{
+.map-view {
     margin-top: 5px;
-  }
+}
 
-  
-  .location-button{
-      margin: auto;
-      margin-right: 10px;
-    }
 
-    .location-result{
-      margin-left: 10px;
-      margin: auto;
-    }
+.location-button {
+    margin: auto;
+    margin-right: 10px;
+}
 
-    .location-container {
-        display: flex;
-        margin-bottom: 5px;
-      }
+.location-result {
+    margin-left: 10px;
+    margin: auto;
+}
+
+.location-container {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.autocomplete {
+    width: 250px;
+    height: 36px;
+    margin-right: 5px;
+    border-radius: 4px;
+    border-width: 1px;
+}

@@ -1,9 +1,8 @@
 <template>
     <div class="location-container">
-        <!-- 获取当前位置的按钮 -->
-        <el-button class="location-button" type="primary" icon="el-icon-place" circle @click="getCurrentLocation"></el-button>
-
-        <!-- 显示结果 -->
+        <el-button class="location-button" type="primary" icon="el-icon-place" circle
+            @click="getCurrentLocation"></el-button>
+        <!-- show cur location result -->
         <p class="location-result">{{ result }}</p>
     </div>
 </template>
@@ -17,7 +16,7 @@ export default {
     },
     methods: {
         getCurrentLocation() {
-            // 使用浏览器的Geolocation API获取当前位置
+            // get current location using browser's Geolocation API
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
                     this.result = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
