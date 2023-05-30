@@ -1,6 +1,8 @@
 # map-demo
 ### You can try it  [Here](http://map.kaixia.link/)
 
+![View](./src/assets/map-demo.png)
+
 ### Requirements
 **Task: Create a web page with the following features using Vue:**
 

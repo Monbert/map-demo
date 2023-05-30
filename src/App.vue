@@ -4,13 +4,13 @@
     <div class="border">
       <div class="flex-container">
         <div class="left-section">
-          <LocationButton />
+          <LocationButton @cur-location="setCurLocation" />
           <SearchBar @select-place="selectPlace" :tableData="dataHistory" />
-          <MapView :places="selectedPlace" :tableData="dataHistory" class="map-view" />
+          <MapView :places="selectedPlace" :tableData="dataHistory" :currLocation="curLocation" class="map-view" />
         </div>
         <div class="right-section">
-          <DataTable :places="selectedPlace" @addTableData="addTableData" />
-          <TimeZone :places="selectedPlace" />
+          <DataTable :places="selectedPlace" @addTableData="addTableData" :currLocation="curLocation" />
+          <TimeZone :places="selectedPlace" :currLocation="curLocation" />
         </div>
       </div>
     </div>
@@ -37,6 +37,7 @@ export default {
     return {
       selectedPlace: null,
       dataHistory: [],
+      curLocation: ''
     }
   },
 
@@ -47,6 +48,10 @@ export default {
 
     addTableData(data) {
       this.dataHistory = data;
+    },
+
+    setCurLocation(curlocation) {
+      this.curLocation = curlocation;
     }
   }
 };

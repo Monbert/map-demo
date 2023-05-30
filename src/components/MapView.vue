@@ -7,7 +7,7 @@
   
 <script>
 export default {
-  props: ['places', 'tableData'],
+  props: ['places', 'tableData', 'currLocation'],
 
   data() {
     return {
@@ -51,7 +51,17 @@ export default {
           this.markers.push({ position: item.position });
         }
       });
+    },
 
+    currLocation(curloc) {
+      if (curloc) {
+        const position = {
+          lat: curloc.lat,
+          lng: curloc.lng
+        };
+        this.markers.push({ position });
+        this.center = position;
+      }
     }
   },
 

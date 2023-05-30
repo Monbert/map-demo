@@ -2,7 +2,7 @@
     <div class="location-container">
         <el-button type="primary" icon="el-icon-place" circle @click="getCurrentLocation"></el-button>
         <!-- show cur location result -->
-        <p class="location-result">{{ result }}</p>
+        <p class="location-result">{{ curLocation }}</p>
     </div>
 </template>
   
@@ -10,7 +10,7 @@
 export default {
     data() {
         return {
-            result: '',
+            curLocation: ''
         };
     },
     methods: {
@@ -18,11 +18,15 @@ export default {
             // get current location using browser's Geolocation API
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                    this.result = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+                    this.curLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }
+                    this.$emit('cur-location', this.curLocation);
                 });
                 this.popSuccessMessage();
             } else {
-                this.result = "Geolocation is not supported by this browser.";
+                this.curLocation = "Geolocation is not supported by this browser.";
             }
         },
 

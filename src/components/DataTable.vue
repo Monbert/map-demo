@@ -27,7 +27,7 @@
 <script>
 
 export default {
-  props: ['places'],
+  props: ['places', 'currLocation'],
   data() {
     return {
       tableData: [],
@@ -64,6 +64,19 @@ export default {
       else {
         this.popErrorMessage();
         // console.log('Cant find the place11');
+      }
+    },
+
+    currLocation(curloc) {
+      if (!this.tableData.some(item => item.search === 'Your Current Location')) { // warning duplicated place
+        const searchResult = {
+          search: 'Your Current Location',
+          address: `lat: ${curloc.lat} lng: ${curloc.lng}`,
+          lat: curloc.lat,
+          lng: curloc.lng
+        };
+        this.tableData.unshift(searchResult); // insert the result at the beginning of the array
+        this.$emit('addTableData', this.tableData);
       }
     }
   },
