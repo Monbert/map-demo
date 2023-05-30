@@ -1,7 +1,7 @@
 <template>
   <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 670px;">
     <GmapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true"
-      :icon="{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }" @click="center = m.position" />
+      :icon="{ url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png' }" @click="center = m.position" />
   </GmapMap>
 </template>
   

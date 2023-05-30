@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
-    <div class="flex-container">
-      <GmapAutocomplete @place_changed="setPlace"
-        :options="{ fields: ['geometry', 'formatted_address', 'address_components', 'name'] }" class="autocomplete" />
-      <el-button type="primary" icon="el-icon-search" @click="setPlace">Search</el-button>
-    </div>
+  <div class="flex-container">
+    <GmapAutocomplete @place_changed="setPlace"
+      :options="{ fields: ['geometry', 'formatted_address', 'address_components', 'name'] }" class="autocomplete" />
+    <el-button type="primary" icon="el-icon-search" @click="setPlace">Search</el-button>
   </div>
 </template>
   
