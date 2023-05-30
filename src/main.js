@@ -4,11 +4,11 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import axios from 'axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import locale from 'element-ui/lib/locale/lang/en'; 
+import locale from 'element-ui/lib/locale/lang/en';
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyC4u2ztHcOHet-8iqRQ_9JC91LyaWY0m9Y', // Google Maps API 
+    key: '{YOUR_GOOGLE_MAP_API}', // Google Maps API 
     libraries: 'places',
   },
 })
