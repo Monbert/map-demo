@@ -11,6 +11,8 @@
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "element-ui": "^2.15.13",
+    "jxLoader": "^0.1.1",
+    "uglify-js": "^3.17.4",
     "vue": "^2.6.14",
     "vue2-google-maps": "^0.10.7"
   },
@@ -22,6 +24,7 @@
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "npm-force-resolutions": "^0.0.10",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
