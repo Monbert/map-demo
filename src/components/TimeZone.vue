@@ -27,8 +27,6 @@ export default {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
         this.getLocalTime(lat, lng);
-      } else {
-        // console.log('Cant find the place22');
       }
     },
 
@@ -46,8 +44,7 @@ export default {
   methods: {
     async getLocalTime(lat, lng) {
       const timestamp = Math.floor((new Date()).getTime() / 1000);
-      const GMAP_API_KEY = 'AIzaSyC4u2ztHcOHet-8iqRQ_9JC91LyaWY0m9Y'; // Google Maps API
-      // const GMAP_API_KEY = '{YOUR_GOOGLE_MAP_API}'; // Google Maps API
+      const GMAP_API_KEY = '{YOUR_GOOGLE_MAP_API}'; // Google Maps API
       const response = await axios.get(`https://maps.googleapis.com/maps/api/timezone/json?location=${lat}%2C${lng}&timestamp=${timestamp}&key=${GMAP_API_KEY}`);
 
       // receive local timezone json data from google_timezone api
@@ -60,7 +57,6 @@ export default {
         console.error('Error fetching timezone data:', response.data);
       }
     }
-
   }
 }
 </script>

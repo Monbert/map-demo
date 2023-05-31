@@ -46,26 +46,23 @@ export default {
           return marker.position.lat === item.lat &&
             marker.position.lng === item.lng;
         });
-
         if (!existingMarker) {
           this.markers.push({ position: item.position });
         }
       });
     },
 
-    currLocation(curloc) {
-      if (curloc) {
+    currLocation(currentlocation) {
+      if (currentlocation) {
         const position = {
-          lat: curloc.lat,
-          lng: curloc.lng
+          lat: currentlocation.lat,
+          lng: currentlocation.lng
         };
         this.markers.push({ position });
         this.center = position;
       }
     }
   },
-
-
 };
 </script>
   
