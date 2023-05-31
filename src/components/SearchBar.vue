@@ -1,8 +1,8 @@
 <template>
   <div class="flex-container">
-    <GmapAutocomplete @place_changed="setPlace"
+    <GmapAutocomplete @place_changed="handlePlaceChanged" @keyup.enter="submitPlace"
       :options="{ fields: ['geometry', 'formatted_address', 'address_components', 'name'] }" class="autocomplete" />
-    <el-button type="primary" icon="el-icon-search" @click="setPlace">Search</el-button>
+    <el-button type="primary" icon="el-icon-search" @click="submitPlace">Search</el-button>
   </div>
 </template>
   
@@ -10,11 +10,11 @@
 export default {
   props: ['tableData'],
 
-
   data() {
     return {
-      place: '',
       searchHistory: [],
+      searchContent: '',
+      placeSelected: false,
     }
   },
 
@@ -25,12 +25,29 @@ export default {
   },
 
   methods: {
+    handlePlaceChanged(place) {
+      this.searchContent = place;
+      this.placeSelected = true;
+    },
 
-    setPlace(place) {
-      this.place = place;
-      this.$emit('select-place', place);
-    }
+    submitPlace() {
+      if (this.placeSelected) {
+        if (this.searchContent) {
+          this.$emit('select-place', this.searchContent);
+          this.placeSelected = false;
+        }
+      } else {
+        this.popWarningMessage();
+      }
+    },
 
+    popWarningMessage() {
+      this.$message({
+        showClose: true,
+        message: `Please enter a new place`,
+        type: 'warning'
+      });
+    },
   }
 };
 </script>
